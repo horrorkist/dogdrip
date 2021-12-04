@@ -3,10 +3,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRandom, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useSetRecoilState } from "recoil";
+import { isSidebarOpen } from "./atoms";
 
 const Nav = styled.div`
   background-color: #2e4361;
-  position: fixed;
   top: 0;
   height: 60px;
   width: 100%;
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  max-width: 1200px;
+  max-width: 1150px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -43,6 +44,7 @@ const SideBarBtn = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  cursor: pointer;
 
   div {
     min-height: 2px;
@@ -232,12 +234,13 @@ function Header() {
     "놀이터",
     "기타",
   ];
+  const setIsSidebarOpen = useSetRecoilState(isSidebarOpen);
   return (
     <>
       <Nav>
         <Wrapper>
           <NavColumn>
-            <SideBarBtn>
+            <SideBarBtn onClick={() => setIsSidebarOpen((prev) => !prev)}>
               <div></div>
               <div></div>
               <div></div>

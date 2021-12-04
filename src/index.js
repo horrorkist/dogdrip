@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { RecoilRoot } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
 
@@ -51,12 +52,17 @@ table {
 * {
   box-sizing: border-box;
 }
+body {
+	height: 200vh;
+}
 `;
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root")
 );
