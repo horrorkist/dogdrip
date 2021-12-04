@@ -11,9 +11,16 @@ const Nav = styled.div`
   height: 60px;
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 150px;
 `;
 
 const NavColumn = styled.div`
@@ -227,51 +234,53 @@ function Header() {
   return (
     <>
       <Nav>
-        <NavColumn>
-          <SideBarBtn>
-            <div></div>
-            <div></div>
-            <div></div>
-          </SideBarBtn>
-          <Logo>
-            <h1>DogDrip.net</h1>
-          </Logo>
-        </NavColumn>
-        <NavColumn>
-          <DropDownMenu>
-            {BoardList.map((board) => (
-              <DropDownItem
-                key={board}
-                onMouseEnter={() => setDropDownHover(board)}
-                onMouseLeave={() => setDropDownHover("")}
-                variants={dropDownItemVariants}
-                whileHover="hover"
-                transition={{ duration: 0.2 }}
-              >
-                {board}
-                <AnimatePresence>
-                  {dropDownHover === board ? (
-                    <DropDownList
-                      key={board + "1"}
-                      variants={dropDownListVariants}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      style={{ originX: 0, originY: 0 }}
-                    ></DropDownList>
-                  ) : null}
-                </AnimatePresence>
-              </DropDownItem>
-            ))}
-          </DropDownMenu>
-        </NavColumn>
-        <NavColumn>
-          <FontAwesomeIcon
-            icon={faRandom}
-            style={{ color: "white", marginRight: 30 }}
-          />
-          <LogIn onClick={() => setInOverlay((prev) => !prev)}>로그인</LogIn>
-        </NavColumn>
+        <Wrapper>
+          <NavColumn>
+            <SideBarBtn>
+              <div></div>
+              <div></div>
+              <div></div>
+            </SideBarBtn>
+            <Logo>
+              <h1>DogDrip.net</h1>
+            </Logo>
+          </NavColumn>
+          <NavColumn>
+            <DropDownMenu>
+              {BoardList.map((board) => (
+                <DropDownItem
+                  key={board}
+                  onMouseEnter={() => setDropDownHover(board)}
+                  onMouseLeave={() => setDropDownHover("")}
+                  variants={dropDownItemVariants}
+                  whileHover="hover"
+                  transition={{ duration: 0.2 }}
+                >
+                  {board}
+                  <AnimatePresence>
+                    {dropDownHover === board ? (
+                      <DropDownList
+                        key={board + "1"}
+                        variants={dropDownListVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        style={{ originX: 0, originY: 0 }}
+                      ></DropDownList>
+                    ) : null}
+                  </AnimatePresence>
+                </DropDownItem>
+              ))}
+            </DropDownMenu>
+          </NavColumn>
+          <NavColumn>
+            <FontAwesomeIcon
+              icon={faRandom}
+              style={{ color: "white", marginRight: 30 }}
+            />
+            <LogIn onClick={() => setInOverlay((prev) => !prev)}>로그인</LogIn>
+          </NavColumn>
+        </Wrapper>
       </Nav>
       <AnimatePresence>
         {inOverlay ? (
