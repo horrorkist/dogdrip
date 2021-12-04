@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/dogdrip/static/js/main.ca3f6b8d.chunk.js",
+    "main.js.map": "/dogdrip/static/js/main.ca3f6b8d.chunk.js.map",
+    "runtime-main.js": "/dogdrip/static/js/runtime-main.d3d49733.js",
+    "runtime-main.js.map": "/dogdrip/static/js/runtime-main.d3d49733.js.map",
+    "static/js/2.05cd5e4a.chunk.js": "/dogdrip/static/js/2.05cd5e4a.chunk.js",
+    "static/js/2.05cd5e4a.chunk.js.map": "/dogdrip/static/js/2.05cd5e4a.chunk.js.map",
+    "index.html": "/dogdrip/index.html",
+    "static/js/2.05cd5e4a.chunk.js.LICENSE.txt": "/dogdrip/static/js/2.05cd5e4a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d3d49733.js",
+    "static/js/2.05cd5e4a.chunk.js",
+    "static/js/main.ca3f6b8d.chunk.js"
+  ]
+}
