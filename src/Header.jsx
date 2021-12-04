@@ -18,6 +18,7 @@ const Nav = styled.div`
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
   max-width: 1200px;
   justify-content: space-between;
   align-items: center;
