@@ -1,11 +1,4 @@
-import axios from "axios";
-import { useEffect } from "react";
 import styled from "styled-components";
-
-async function getHtml() {
-  const response = await axios.get("https://www.dogdrip.net/");
-  console.log(response);
-}
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -32,7 +25,6 @@ const Tempbox = styled.div`
 `;
 
 function Home() {
-  getHtml();
   return (
     <Wrapper>
       <Main>
