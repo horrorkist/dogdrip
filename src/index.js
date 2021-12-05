@@ -54,7 +54,7 @@ table {
 }
 body {
 	height: 200vh;
-	background-color: #1e1e1e;
+	background-color: #222222;
 }
 *::-webkit-scrollbar {
 	display: none;

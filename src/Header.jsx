@@ -127,12 +127,15 @@ const DropDownList = styled(motion.div)`
 const dropDownListVariants = {
   initial: {
     scale: 0,
+    opacity: 1,
   },
   animate: {
     scale: 1,
+    opacity: 1,
   },
   exit: {
     scale: 0,
+    opacity: 0,
   },
 };
 
