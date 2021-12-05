@@ -1,9 +1,11 @@
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isSidebarOpen } from "./atoms";
+import React from "react";
 
 const Wrapper = styled(motion.div)`
   height: 100vh;
@@ -13,7 +15,7 @@ const Wrapper = styled(motion.div)`
   left: 0;
   top: 0;
   background-color: #222222;
-  overflow: scroll;
+  overflow-y: auto;
 `;
 
 const wrapperVariants = {
@@ -103,6 +105,11 @@ const SideMenu = styled.div`
   justify-content: space-between;
   align-items: center;
   color: white;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  :hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
   span {
     font-size: 15px;
   }
@@ -118,12 +125,62 @@ const SideMenuBtn = styled(motion.div)`
   align-items: center;
   color: rgba(255, 255, 255, 0.3);
   cursor: pointer;
+  transition: color 0.2s ease;
+  :hover {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+  .active {
+    transform: rotateX(180deg);
+  }
 `;
 
-const SideList = styled.div``;
+const SideMenuDropDown = styled(motion.div)`
+  width: 100%;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.8);
+  box-sizing: content-box;
+`;
+
+const SideMenuDropDownItem = styled.div`
+  padding: 15px 0px;
+  padding-left: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  transition: all 0.3s ease;
+  color: rgba(100, 100, 100, 1);
+  :hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+  }
+`;
+
+const sVar = {
+  sideInitial: {
+    height: 0,
+    opacity: 0,
+    paddingBottom: "0px",
+  },
+  sideActivate: {
+    height: "auto",
+    opacity: 1,
+    paddingBottom: "15px",
+  },
+  sideExit: {
+    height: 0,
+    opacity: 0,
+    paddingBottom: "0px",
+  },
+};
 
 function Sidebar() {
   const [sidebar, setSidebar] = useRecoilState(isSidebarOpen);
+  const [sideDropDown, setSideDropDown] = useState([]);
   const BoardList = [
     "개드립",
     "유저 개드립",
@@ -133,6 +190,17 @@ function Sidebar() {
     "놀이터",
     "기타",
   ];
+  const onMenuBtnClick = (board) => {
+    const icon = document.querySelector("." + board);
+    icon.classList.toggle("active");
+    const targetIndex = sideDropDown.findIndex((e) => e === board);
+    targetIndex !== -1
+      ? setSideDropDown((prev) => [
+          ...prev.slice(0, targetIndex),
+          ...prev.slice(targetIndex + 1),
+        ])
+      : setSideDropDown((prev) => [...prev, board]);
+  };
 
   return (
     <>
@@ -146,6 +214,7 @@ function Sidebar() {
             exit="exit"
           >
             <Wrapper
+              onClick={(e) => e.stopPropagation()}
               variants={wrapperVariants}
               transition={{ duration: 0.5, type: "linear" }}
               style={{ originX: 0 }}
@@ -160,12 +229,42 @@ function Sidebar() {
                 </ProfileColumn>
               </Profile>
               {BoardList.map((board) => (
-                <SideMenu>
-                  <span>{board}</span>
-                  <SideMenuBtn>
-                    <FontAwesomeIcon icon={faChevronDown} />
-                  </SideMenuBtn>
-                </SideMenu>
+                <React.Fragment key={board + "frag"}>
+                  <SideMenu key={board}>
+                    <span>{board}</span>
+                    <SideMenuBtn
+                      onClick={() => onMenuBtnClick(board.replace(/ /g, ""))}
+                    >
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={board.replace(/ /g, "")}
+                      />
+                    </SideMenuBtn>
+                  </SideMenu>
+                  <AnimatePresence>
+                    {sideDropDown.find((e) => e === board.replace(/ /g, "")) ? (
+                      <SideMenuDropDown
+                        key={board + "Drop"}
+                        variants={sVar}
+                        initial="sideInitial"
+                        animate="sideActivate"
+                        exit="sideExit"
+                        transition={{
+                          duration: 0.3,
+                          type: "tween",
+                        }}
+                        style={{ originX: 0.5, originY: 0 }}
+                      >
+                        <SideMenuDropDownItem>
+                          <span>개드립</span>
+                        </SideMenuDropDownItem>
+                        <SideMenuDropDownItem>
+                          <span>개드립 인기글</span>
+                        </SideMenuDropDownItem>
+                      </SideMenuDropDown>
+                    ) : null}
+                  </AnimatePresence>
+                </React.Fragment>
               ))}
             </Wrapper>
           </Overlay>

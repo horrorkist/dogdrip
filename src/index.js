@@ -54,6 +54,10 @@ table {
 }
 body {
 	height: 200vh;
+	background-color: #1e1e1e;
+}
+*::-webkit-scrollbar {
+	display: none;
 }
 `;
 

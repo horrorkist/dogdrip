@@ -120,7 +120,7 @@ const DropDownList = styled(motion.div)`
   top: 60px;
   left: 0;
   background-color: #222222;
-  border: 1px solid rgba(45, 45, 45, 1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   padding: 20px 15px;
 `;
 
